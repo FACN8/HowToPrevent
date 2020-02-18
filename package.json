@@ -1,0 +1,35 @@
+{
+    "name": "HowToPrevent",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FACN8/HowToPrevent.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/FACN8/HowToPrevent/issues"
+    },
+    "homepage": "https://github.com/FACN8/HowToPrevent#readme",
+    "dependencies": {
+        "bcrypt": "^3.0.8",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.4",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^3.1.0",
+        "helmet": "^3.21.2",
+        "jsonwebtoken": "^8.5.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.2"
+    }
+}

@@ -1,3 +1,5 @@
+
+
 exports.get = (req, res) => {
     res.render("game", {
       activePage: { game: true },
@@ -6,3 +8,7 @@ exports.get = (req, res) => {
     });
   };
   
+ 
+ 
+  
+

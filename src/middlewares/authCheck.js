@@ -1,15 +1,24 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-module.exports = authCheck = (req, res, next) => {
-  jwt.verify(req.cookies.data, process.env.JWT_SECRET, function(err, decoded) {
-    if (err) {
-      res.locals.error = err;
+module.exports = (req, res, next) => {
+    if (req.cookies.access_token) {
+        jwt.verify(req.cookies.access_token, process.env.JWT_SECRET, function(
+            err,
+            decoded
+        ) {
+            if (err) {
+                res.local.error = err;
+                return next();
+            }
+
+            res.locals.signedIn = true;
+            res.locals.username = decoded;
+            next()
+        });
+    } else {
+        res.locals.signedIn = false;
+        res.locals.username = null;
+
+        next();
     }
-
-    (res.locals.signedIn = decoded.access_token),
-      (res.locals.user = decoded.userName),
-      (res.locals.id = decoded.id);
-
-    next();
-  });
 };

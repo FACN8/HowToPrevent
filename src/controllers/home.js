@@ -1,13 +1,18 @@
-const jwt = require('jsonwebtoken')
-
 exports.get = (req, res) => {
-    if (!res.locals.error) {
-        res.render('home', {
+    if (res.locals.error) {
+        return res.render('home', {
+            activePage: { home: true },
+            error: err.message
+        });
+    }
+
+    if (res.locals.signedIn) {
+        return res.render('home', {
             activePage: { home: true },
             signedIn: true,
-            username: res.locals.user
+            username: res.locals.username
         });
-    } else {
-        res.render('login')
     }
+
+    res.render('home', { activePage: { home: true } });
 };

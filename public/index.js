@@ -7,7 +7,7 @@ const auth = require('./auth');
 const error = require('./error');
 
 // add home route
-router.get('/', home.get);
+router.get('/', middleware.authCheck,home.get);
 router.get('/register', auth.registerPage);
 router.post('/authenticate', auth.authenticate);
 router.post('/addUser', auth.addUser);

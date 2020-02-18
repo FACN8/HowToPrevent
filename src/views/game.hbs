@@ -1,5 +1,10 @@
 <!--CSS Drawing Practice: Winking Bear-->
 <!--adapted from zinee tutorial-->
+ <head>
+        <link rel="stylesheet" href="/css/bear.css">
+        <link rel="stylesheet" href="/css/coin.css">
+  </head>
+
 <body>
   <div class="bear">
     <div class="ear left"></div>
@@ -15,4 +20,15 @@
       <div class="mouth right"></div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="coin gold">
+      <p>$</p>
+    </div>
+  </div>
+  <script>var bear = document.getElementsByClassName("bear").addEventListener("click", function () {
+      document.getElementById("text").innerText = "GeeksforGeeks";
+    }); 
+  </script>
+
 </body>

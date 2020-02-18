@@ -12,64 +12,68 @@ exports.registerPage = (req, res) => {
 };
 
 
-exports.addUser = (req, res, err) => {
-    const { password, confirmPassword, username } = req.body
-    if (password === confirmPassword) {
-        bcrypt.hash(password, saltRounds, async function(err, hash) {
-            try {
-                await addNewUser(username, hash);
+exports.addUser = (req, res, err) =>
+    bcrypt.hash(password, 10, async(err, hash) => {
+        if (err) {
+            return res.render('register', {
+                activePage: { register: true },
+                error: error.message
+            });
+        }
 
-                res.render("home", { activePage: { home: true } });
-            } catch (e) {
-                res.render("register", {
-                    activePage: { register: true },
-                    errorMsg: "User already registered"
-                });
-            }
-        });
-    } else {
-        res.render("register", {
-            activePage: { register: true },
-            errorMsg: "Password do not match"
-        });
-    }
-};
+        try {
+            await addNewUser(username, hash)
+
+            res.redirect('/login')
+        } catch (error) {
+
+            res.render('register', {
+                activePage: { register: true },
+                error: error.message
+            })
+
+        }
+    });
+
 
 exports.authenticate = async(req, res) => {
     try {
-        const user = await findByUsername(req.body.username);
-        bcrypt.compare(req.body.password, user.password, function(err, result) {
-            if (err) {
-                res.render("home", {
-                    activePage: { home: true },
-                    errorMsg: "Password is wrong"
+        const { password, username } = req.bodu;
+
+        const user = await findByUsername(username);
+
+        bcrypt.compare(password, user.password, function(err, result) {
+            if (!result) {
+                return res.render('login', {
+                    activePage: { login: true },
+                    error: 'Password is incorrect'
                 });
             }
-            const userInformation = {
-                userId: user.id,
-                userName: user.username,
-                access_token: true
-            };
-            jwt.sign(userInformation, process.env.JWT_SECRET, function(err, token) {
+
+            jwt.sign(user.username, process.env.JWT_SECRET, function(err, token) {
                 if (err) {
-                    res.render("home", {
-                        activePage: { home: true },
-                        errorMsg: "Error in our server,please contact the owner"
+                    res.render('login', {
+                        activePage: { login: true },
+                        error: err.message
                     });
                 }
-                res.cookie("data", token, { HttpOnly: true });
-                res.redirect("/game");
+
+                res.cookie('access_token', token);
+                res.redirect('/');
             });
         });
     } catch (error) {
-        res.render("home", {
-            activePage: { home: true },
-            errorMsg: "Username not found"
+        res.render('login', {
+            activePage: { login: true },
+            error: error.message
         });
     }
 };
 
-exports.logout = (req, res) => {
-    res.clearCookie("data");
-    res.redirect("/");
+exports.logout = (req, res, next) => {
+    res.clearCookie('access_token');
+
+    res.redirect('/');
+
+    next();
 };

@@ -1,5 +1,7 @@
 exports.get = (req, res) => {
-let auto_price = Math.pow(res.locals.level_auto,2)*1000;
+
+    if (res.locals.signedIn) {
+  let auto_price = Math.pow(res.locals.level_auto,2)*1000;
 if(auto_price===0){auto_price=1000}
   const userProfile = {
     id: res.locals.id,
@@ -15,3 +17,8 @@ if(auto_price===0){auto_price=1000}
     userProfile
   });
 };
+    } else {
+        res.redirect('/')
+    }
+};
+

@@ -15,12 +15,12 @@ module.exports = (req, res, next) => {
             res.locals.coins = decoded.profileData.coin
             res.locals.level_attack = decoded.profileData.level_attack
             res.locals.level_auto = decoded.profileData.level_auto
+            res.locals.signedIn = true;
             next()
 
         });
     } else {
-        res.locals.name = false;
-        res.locals.id = null;
+        res.locals.signedIn = false;
 
         next();
     }

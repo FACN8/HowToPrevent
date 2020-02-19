@@ -4,11 +4,17 @@ body{
   background-size: cover;
 }
 
+.container{
+  display: flex;
+  top: 10px;
+  left: 80px;
+}
+
 .coin p{
     font-family: georgia;
     font-style: italic;
     position: absolute;
-    font-size: 28px;
+   font-size: 28px;
     z-index: 700;
     top: 3px;
     left: 19px;
@@ -24,21 +30,23 @@ body{
     display: inline-block;
     position: relative;
     margin: 5px;
-    top: -460px;
-    right: 100px;
+    top: -500px;
+    right: 10px;
     border-radius: 50px;
     z-index: 500;
     box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
     }
   
   
-  .coin:hover{
-    top: -1px;
-    transition: all .5s ease-in-out;
-    box-shadow:  0px 0px 5px 1px rgba(0, 0, 0, .2);
-    }
-  
   .gold{
   background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
   }
   
+  .score{
+    position: fixed;
+    display: flex;
+    font-weight: bold;
+    font-size: 300%;
+    top: 55px;
+    left: 180px
+    }

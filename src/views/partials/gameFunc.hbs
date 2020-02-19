@@ -25,29 +25,8 @@
 
 
 <script>
-  //let score id = select * from profile where user_id ="taken from login";  
-  let score = 0;
-  document.getElementById("bear").addEventListener("click", function () {
-    var levelAttack = document.getElementById("levelAttack");//should be increased using Francis input
-    score = score + MAth.pow(levelAttack,2);
-    var x = document.getElementById("score");
-    document.getElementById("score").textContent = score.toString();
-  });
-
-
-  axios.post('/user', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    var button = document.getElementById("bear"); 
-    const debounce = (func, delay) => { 
+  const getScore = document.getElementById('score');
+     const debounce = (func, delay) => { 
     let debounceTimer 
     return function() { 
         const context = this
@@ -56,22 +35,26 @@
                 debounceTimer 
             = setTimeout(() => func.apply(context, args), delay) 
     } 
-}  
-button.addEventListener('click', debounce(function() { 
-        alert("Hello\nNo matter how many times you" + 
-            "click the debounce button, I get " + 
-            "executed once every 3 seconds!!") 
-                        }, 3000)); 
+} 
+function postData(path,body){
+axios.post(path, body)
+    .then(function (response) {
+      getScore.textContent.response
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+  document.getElementById("bear").addEventListener("click", function () {
+    let score = getScore.textContent;
+    let levelAttack = document.getElementById("levelAttack").textContent;
+    score = parseInt(score)+Math.pow(levelAttack,2);
+    document.getElementById("score").textContent = score.toString();
+  });
+debounce(function() { 
+  let score = getScore.textContent;
+postData('/updateData',{score})
+                        }, 3000); 
 
-  const updateProfile=(name_id)=>{
-	  new Promise((resolve,reject)=>{
-      dbConnection.query('update profile set coin = $1 level_attack = $2 level_auto = $3 where name_id = $4', [coin, level_atack, level_auto, name_id],(err,result)=>{
-        if(err){
-          return reject(new Error("user not found"));
-        }
-        resolve(res.row);
-      });
-
-});
 
 </script>

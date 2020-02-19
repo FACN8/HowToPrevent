@@ -55,10 +55,20 @@ const getProfile = (name_id) =>
         });
 
     });
-
+    const updateProfile=(coin,level_atack,level_auto,name_id)=>
+        new Promise((resolve,reject)=>{
+        dbConnection.query('update profile set coin = $1 ,level_attack = $2 ,level_auto = $3 where name_id = $4', [coin, level_atack, level_auto, name_id],(err,result)=>{
+          if(err){
+            return reject(new Error("user not found"));
+          }
+          resolve(res.row);
+        });
+    });
+    
 module.exports = {
     findByUsername,
     addNewUser,
     addProfile,
-    getProfile
+    getProfile,
+    updateProfile
 }

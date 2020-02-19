@@ -1,3 +1,6 @@
+const { findByUsername, addNewUser, addProfile, getProfile,updateData } = require("../models/users/user.model");
+
+
 exports.get = (req, res) => {
 
     if (res.locals.signedIn) {
@@ -16,8 +19,19 @@ if(auto_price===0){auto_price=1000}
     activePage: { game: true },
     userProfile
   });
+
     } else {
         res.redirect('/')
     }
-};
 
+};
+exports.updateData = async(req, res) => {
+  if (res.locals.signedIn) {
+
+    req.body.score
+   await updateData(req.body.score,res.locals.level_attack,res.locals.level_auto,res.locals.id)
+
+   } else {
+    res.redirect('/')
+}
+}

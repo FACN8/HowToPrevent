@@ -13,6 +13,7 @@ router.post('/login', auth.authenticate);
 router.post('/addUser', auth.addUser);
 router.get('/logout', auth.logout);
 router.get('/game', middleware.authCheck, game.get);
+router.post('/updateData', game.UpdateData);
 router.use(error.client);
 router.use(error.server);
 

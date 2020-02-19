@@ -1,0 +1,37 @@
+ 
+ <div class="bear" id="bear">
+    <div class="ear left"></div>
+    <div class="ear right"></div>
+
+    <div class="face">
+      <div class="eyebrow left"></div>
+      <div class="eyebrow right"></div>
+      <div class="eye left"></div>
+      <dqiv class="eye right"></dqiv>
+      <div class="nose"></div>
+      <div class="mouth left"></div>
+      <div class="mouth right"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="coin gold">
+      <p>$</p>
+    </div>
+    <div class="score">
+      <span id="score"> $score </span>
+      </div>
+    </div>
+    
+ 
+ 
+  <script> 
+    //let score id = select * from profile where user_id ="taken from login";  
+    let score = 0;
+    document.getElementById("bear").addEventListener("click", function () {
+      score++;//should be increased using Francis input
+      var x = document.getElementById("score");
+      document.getElementById("score").textContent=score.toString();
+    });
+
+  </script>

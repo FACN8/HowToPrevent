@@ -20,25 +20,7 @@
           <h1>hello its me</h1>
         </div>
         <div id="game" class="tab-pane fade active show">
-          <div class="bear">
-            <div class="ear left"></div>
-            <div class="ear right"></div>
-
-            <div class="face">
-              <div class="eyebrow left"></div>
-              <div class="eyebrow right"></div>
-              <div class="eye left"></div>
-              <div class="eye right"></div>
-              <div class="nose"></div>
-              <div class="mouth left"></div>
-              <div class="mouth right"></div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="coin gold">
-              <p>$</p>
-            </div>
-          </div>
+          {{>gameFunc}}
         </div>
         <div id="profile" class="tab-pane fade">
         </div>
@@ -47,10 +29,8 @@
   </div>
 </section>
 
-<script>var bear = document.getElementsByClassName("bear").addEventListener("click", function () {
-    document.getElementById("text").innerText = "GeeksforGeeks";
-  }); 
-</script>
+
+
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"

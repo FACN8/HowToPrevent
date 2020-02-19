@@ -76,8 +76,5 @@ exports.authenticate = async(req, res) => {
 
 exports.logout = (req, res, next) => {
     res.clearCookie('user_access');
-
-    res.redirect('/');
-
-    next();
+    res.redirect('/')
 };

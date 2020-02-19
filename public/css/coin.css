@@ -1,10 +1,10 @@
-body{
-  background-image: url('../images/game_background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+body {
+    background-image: url('../images/game_background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.coin p{
+.coin p {
     font-family: georgia;
     font-style: italic;
     position: absolute;
@@ -12,14 +12,16 @@ body{
     z-index: 700;
     top: 3px;
     left: 19px;
-    }
-  
-  .coin.gold p{  color: rgba(242,215,50,1);}
-  
-  .coin{
+}
+
+.coin.gold p {
+    color: rgba(242, 215, 50, 1);
+}
+
+.coin {
     cursor: pointer;
     content: "";
-    width: 52px; 
+    width: 52px;
     height: 52px;
     display: inline-block;
     position: relative;
@@ -28,17 +30,15 @@ body{
     right: 100px;
     border-radius: 50px;
     z-index: 500;
-    box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
-    }
-  
-  
-  .coin:hover{
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .1);
+}
+
+.coin:hover {
     top: -1px;
     transition: all .5s ease-in-out;
-    box-shadow:  0px 0px 5px 1px rgba(0, 0, 0, .2);
-    }
-  
-  .gold{
-  background: linear-gradient(45deg,  rgba(242,215,12,1) 0%,rgba(255,255,255,1) 56%,rgba(252,235,0,1) 96%);
-  }
-  
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, .2);
+}
+
+.gold {
+    background: linear-gradient(45deg, rgba(242, 215, 12, 1) 0%, rgba(255, 255, 255, 1) 56%, rgba(252, 235, 0, 1) 96%);
+}

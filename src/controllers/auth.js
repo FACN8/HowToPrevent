@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 
-const { findByUsername, addNewUser } = require("../models/users/user.model");
+const { findByUsername, addNewUser, addProfile, getProfile } = require("../models/users/user.model");
 
 exports.homePage = (req, res) => {
     res.render("home", { activePage: { home: true } });
@@ -15,23 +15,24 @@ exports.registerPage = (req, res) => {
 exports.addUser = (req, res, err) =>
     bcrypt.hash(req.body.password, saltRounds, async(err, hash) => {
         const { name, email } = req.body
-        console.log(req.body)
         if (err) {
             return res.render('register', {
                 activePage: { register: true },
-                error: error.message
+                error: "User Created"
             });
         }
 
         try {
             await addNewUser(name, email, hash)
-
+            const userData = await findByUsername(name);
+            await addProfile(userData[0].id);
             res.redirect('/')
+
         } catch (error) {
             console.log(error)
             res.render('register', {
                 activePage: { register: true },
-                error: error.message
+                error: "Did Not Create User"
             })
 
         }
@@ -42,6 +43,8 @@ exports.authenticate = async(req, res) => {
     try {
         const { password, name } = req.body;
         const userData = await findByUsername(name);
+        const profileData = await getProfile(userData[0].id)
+        const allUserData = { userData: userData[0], profileData: profileData[0] };
 
         bcrypt.compare(password, userData[0].password, function(err, result) {
             if (!result) {
@@ -51,7 +54,7 @@ exports.authenticate = async(req, res) => {
                 });
             }
 
-            jwt.sign(userData[0], process.env.JWT_SECRET, function(err, token) {
+            jwt.sign(allUserData, process.env.JWT_SECRET, function(err, token) {
                 if (err) {
                     res.render('home', {
                         activePage: { login: true },
@@ -59,7 +62,7 @@ exports.authenticate = async(req, res) => {
                     });
                 }
 
-                res.cookie('access_token', token);
+                res.cookie('user_access', token);
                 res.redirect('/game');
             });
         });
@@ -72,7 +75,7 @@ exports.authenticate = async(req, res) => {
 };
 
 exports.logout = (req, res, next) => {
-    res.clearCookie('access_token');
+    res.clearCookie('user_access');
 
     res.redirect('/');
 

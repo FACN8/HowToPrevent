@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    if (req.cookies.access_token) {
-        jwt.verify(req.cookies.access_token, process.env.JWT_SECRET, function(
+    if (req.cookies.user_access) {
+        jwt.verify(req.cookies.user_access, process.env.JWT_SECRET, function(
             err,
             decoded
         ) {
@@ -10,14 +10,17 @@ module.exports = (req, res, next) => {
                 res.local.error = err;
                 return next();
             }
-
-            res.locals.signedIn = true;
-            res.locals.username = decoded;
+            res.locals.id = decoded.userData.id;
+            res.locals.name = decoded.userData.name;
+            res.locals.coins = decoded.profileData.coin
+            res.locals.level_attack = decoded.profileData.level_attack
+            res.locals.level_auto = decoded.profileData.level_auto
             next()
+
         });
     } else {
-        res.locals.signedIn = false;
-        res.locals.username = null;
+        res.locals.name = false;
+        res.locals.id = null;
 
         next();
     }

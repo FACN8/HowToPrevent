@@ -13,6 +13,8 @@ const findByUsername = name =>
         });
 
     });
+
+    
 const addNewUser = async(name, email, password) =>
     new Promise((resolve, reject) => {
         // if the user exists then do not add him to our database

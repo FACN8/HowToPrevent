@@ -1,37 +1,77 @@
- 
- <div class="bear" id="bear">
-    <div class="ear left"></div>
-    <div class="ear right"></div>
+<div class="bear" id="bear">
+  <div class="ear left"></div>
+  <div class="ear right"></div>
 
-    <div class="face">
-      <div class="eyebrow left"></div>
-      <div class="eyebrow right"></div>
-      <div class="eye left"></div>
-      <dqiv class="eye right"></dqiv>
-      <div class="nose"></div>
-      <div class="mouth left"></div>
-      <div class="mouth right"></div>
-    </div>
+  <div class="face">
+    <div class="eyebrow left"></div>
+    <div class="eyebrow right"></div>
+    <div class="eye left"></div>
+    <dqiv class="eye right"></dqiv>
+    <div class="nose"></div>
+    <div class="mouth left"></div>
+    <div class="mouth right"></div>
   </div>
+</div>
 
-  <div class="container">
-    <div class="coin gold">
-      <p>$</p>
-    </div>
-    <div class="score">
-      <span id="score"> $score </span>
-      </div>
-    </div>
-    
- 
- 
-  <script> 
-    //let score id = select * from profile where user_id ="taken from login";  
-    let score = 0;
-    document.getElementById("bear").addEventListener("click", function () {
-      score++;//should be increased using Francis input
-      var x = document.getElementById("score");
-      document.getElementById("score").textContent=score.toString();
+<div class="container">
+  <div class="coin gold">
+    <p>$</p>
+  </div>
+  <div class="score">
+    <span id="score"> {{userProfile.coins}} </span>
+  </div>
+</div>
+
+
+
+<script>
+  //let score id = select * from profile where user_id ="taken from login";  
+  let score = 0;
+  document.getElementById("bear").addEventListener("click", function () {
+    var levelAttack = document.getElementById("levelAttack");//should be increased using Francis input
+    score = score + MAth.pow(levelAttack,2);
+    var x = document.getElementById("score");
+    document.getElementById("score").textContent = score.toString();
+  });
+
+
+  axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
 
-  </script>
+    var button = document.getElementById("bear"); 
+    const debounce = (func, delay) => { 
+    let debounceTimer 
+    return function() { 
+        const context = this
+        const args = arguments 
+            clearTimeout(debounceTimer) 
+                debounceTimer 
+            = setTimeout(() => func.apply(context, args), delay) 
+    } 
+}  
+button.addEventListener('click', debounce(function() { 
+        alert("Hello\nNo matter how many times you" + 
+            "click the debounce button, I get " + 
+            "executed once every 3 seconds!!") 
+                        }, 3000)); 
+
+  const updateProfile=(name_id)=>{
+	  new Promise((resolve,reject)=>{
+      dbConnection.query('update profile set coin = $1 level_attack = $2 level_auto = $3 where name_id = $4', [coin, level_atack, level_auto, name_id],(err,result)=>{
+        if(err){
+          return reject(new Error("user not found"));
+        }
+        resolve(res.row);
+      });
+
+});
+
+</script>

@@ -13,7 +13,9 @@ const findByUsername = name =>
 
     });
 
+
 const addNewUser = (name, email, password) =>
+
     new Promise((resolve, reject) => {
         // if the user exists then do not add him to our database
         findByUsername(name)

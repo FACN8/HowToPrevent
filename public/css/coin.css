@@ -4,11 +4,10 @@ body {
     background-size: cover;
 }
 
-.container {
-    position: static;
-    display: flex;
-    top: 10px;
-    left: 80px;
+
+.container{
+  top: 10px;
+  left: 80px;
 }
 
 .coin p {

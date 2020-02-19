@@ -16,7 +16,6 @@ if(auto_price===0){auto_price=1000}
     activePage: { game: true },
     userProfile
   });
-};
     } else {
         res.redirect('/')
     }

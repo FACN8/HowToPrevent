@@ -9,7 +9,7 @@ const findByUsername = name =>
             if (err) {
                 return reject(new Error('No user was found'))
             }
-            resolve(resolve.rows);
+            resolve(res.rows);
         });
 
     });

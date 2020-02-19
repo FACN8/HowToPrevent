@@ -5,9 +5,9 @@ DROP TABLE IF EXISTS profile CASCADE;
 
 CREATE TABLE usernames (
     ID SERIAL PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
-    email VARCHAR(30) NOT NULL,
-    password VARCHAR(30) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE profile (

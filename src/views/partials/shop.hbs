@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>upgrade to get better in game</h1>
+    <div class='attack'>
+        <span class="level" id='levelAttack'>{{userProfile.level_attack}}</span>
+        <label>Attack</label>
+        <button id='attack'>upgrade -<span>{{userProfile.level_attack_price}}</span>$</button>
+    </div>
+    <div class='autoAttack'>
+        <span class="level" id='levelAutoAttack'>{{userProfile.level_auto}}</span>
+        <label>Auto Attack</label>
+        <button id='autoAttack'>upgrade -<span>{{userProfile.level_auto_price}}</span>$</button>
+    </div>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    function postUpgrade(upgradeType) {
+        axios.post('/upgrade', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    const attack = document.getElementById('attack')
+    const autoAttack = document.getElementById('autoAttack')
+    console.log({ attack, autoAttack })
+    attack.addEventListener('click', event => {
+
+    })
+
+</script>

@@ -4,15 +4,15 @@
   <form class="register__form" action="/addUser" method="POST">
    
     <label for="username">Username:
-    <input id ="username" class="text-input" type="text" name="username" placeholder="Fill in username">
+    <input id ="username" name="name" class="text-input" type="text" name="username" placeholder="Fill in username">
     
     <label for="email">Email:
-    <input id = "email" class="text-input" type="text" placeholder="Fill in your Email address">
+    <input id = "email" name="email" class="text-input" type="text" placeholder="Fill in your Email address">
     </label>
      <p id="emailErr" class="error"></p>
 
     <label for="password"> Password:
-    <input  id="password" class="text-input" placeholder="Fill in password" type="password"  required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+    <input  id="password" name='password' class="text-input" placeholder="Fill in password" type="password">
     </label>
       <p id="passwordErr" class="error"></p>
 

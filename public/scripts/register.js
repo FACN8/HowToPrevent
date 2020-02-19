@@ -1,57 +1,70 @@
-var email = document.getElementById("email");
-var password = document.getElementById("password");
-var confirmPassword = document.getElementById("confirmPassword");
-var form = document.getElementsByTagName("form")[0];
+const username = document.getElementById("inputName");
+const email = document.getElementById("inputEmail");
+const password = document.getElementById("inputPassword");
+const confirmPassword = document.getElementById("inputVerify");
+const form = document.getElementsByClassName("form")[0];
+const usernameErr = document.getElementById("usernameErr");
+const emailErr = document.getElementById("emailErr");
+const passwordErr = document.getElementById("passwordErr");
+const confirmErr = document.getElementById("confirmErr");
 
-var emailErr = document.getElementById("emailErr");
-var passwordErr = document.getElementById("passwordErr");
-var confirmErr = document.getElementById("confirmErr");
+const checkUsername = function () {
+  if (username.value === '') {
+    displayErr(usernameErr, "Please Enter your Username")
+    return false;
+  } else {
+    displayErr(usernameErr, "");
+    return true;
+  }
+};
 
-var checkEmail = function() {
-  if (email.validity.typeMismatch) {
-    displayErr(emailErr, "Please enter a valid email address");
-  } else if (email.validity.valueMissing) {
-    displayErr(emailErr, "Please enter an email address");
+const checkEmail = function () {
+  if (email.value === '') {
+    displayErr(emailErr, "Please Enter your Email")
+    return false;
   } else {
     displayErr(emailErr, "");
     return true;
   }
 };
 
-var checkPw = function() {
-  if (password.validity.patternMismatch) {
-    displayErr(
-      passwordErr,
-      "Password must contain at least eight characters, including one letter and one number"
-    );
-  } else if (password.validity.valueMissing) {
-    displayErr(passwordErr, "Please enter a password");
+const checkPw = function () {
+  if (password.value === '') {
+    displayErr(passwordErr, "Please enter Password");
+    return false;
   } else {
     displayErr(passwordErr, "");
     return true;
   }
 };
 
-var checkConfirmPw = function() {
+const checkConfirmPw = function () {
   if (password.value != confirmPassword.value) {
     displayErr(confirmErr, "Passwords do not match");
-  } else if (confirmPassword.validity.valueMissing) {
+    return false;
+  } else if (confirmPassword.value === '') {
     displayErr(confirmErr, "Please confirm your password");
+    return false;
   } else {
     displayErr(confirmErr, "");
     return true;
   }
 };
 
-function displayErr(errElem, errMsg) {
+const displayErr = (errElem, errMsg) => {
   errElem.innerText = errMsg;
 }
 
+username.addEventListener("focusout", checkUsername);
 email.addEventListener("focusout", checkEmail);
 password.addEventListener("focusout", checkPw);
 confirmPassword.addEventListener("focusout", checkConfirmPw);
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function (event) {
+
+  if (!checkUsername()) {
+    event.preventDefault();
+  }
   if (!checkEmail()) {
     event.preventDefault();
   }
@@ -61,4 +74,5 @@ form.addEventListener("submit", function(event) {
   if (!checkConfirmPw()) {
     event.preventDefault();
   }
+
 });

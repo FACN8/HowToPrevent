@@ -28,7 +28,7 @@ exports.addUser = (req, res, err) =>
 
             res.redirect('/')
         } catch (error) {
-
+            console.log(error)
             res.render('register', {
                 activePage: { register: true },
                 error: error.message
@@ -41,33 +41,32 @@ exports.addUser = (req, res, err) =>
 exports.authenticate = async(req, res) => {
     try {
         const { password, name } = req.body;
+        const userData = await findByUsername(name);
 
-        const user = await findByUsername(name);
-
-        bcrypt.compare(password, user.password, function(err, result) {
+        bcrypt.compare(password, userData[0].password, function(err, result) {
             if (!result) {
-                return res.render('/home', {
+                return res.render('home', {
                     activePage: { login: true },
                     error: 'Password is incorrect'
                 });
             }
 
-            jwt.sign(user.name, process.env.JWT_SECRET, function(err, token) {
+            jwt.sign(userData[0], process.env.JWT_SECRET, function(err, token) {
                 if (err) {
-                    res.render('/home', {
+                    res.render('home', {
                         activePage: { login: true },
-                        error: err.message
+                        error: "Password is Incorrect"
                     });
                 }
 
                 res.cookie('access_token', token);
-                res.redirect('/');
+                res.redirect('/game');
             });
         });
     } catch (error) {
-        res.render('/home', {
+        res.render('home', {
             activePage: { login: true },
-            error: error.message
+            error: "User Name Not Found"
         });
     }
 };

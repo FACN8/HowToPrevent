@@ -13,7 +13,9 @@ exports.registerPage = (req, res) => {
 
 
 exports.addUser = (req, res, err) =>
-    bcrypt.hash(password, 10, async(err, hash) => {
+    bcrypt.hash(req.body.password, saltRounds, async(err, hash) => {
+        const { name, email } = req.body
+        console.log(req.body)
         if (err) {
             return res.render('register', {
                 activePage: { register: true },
@@ -22,9 +24,9 @@ exports.addUser = (req, res, err) =>
         }
 
         try {
-            await addNewUser(username, hash)
+            await addNewUser(name, email, hash)
 
-            res.redirect('/login')
+            res.redirect('/')
         } catch (error) {
 
             res.render('register', {
@@ -38,21 +40,21 @@ exports.addUser = (req, res, err) =>
 
 exports.authenticate = async(req, res) => {
     try {
-        const { password, username } = req.bodu;
+        const { password, name } = req.body;
 
-        const user = await findByUsername(username);
+        const user = await findByUsername(name);
 
         bcrypt.compare(password, user.password, function(err, result) {
             if (!result) {
-                return res.render('login', {
+                return res.render('/home', {
                     activePage: { login: true },
                     error: 'Password is incorrect'
                 });
             }
 
-            jwt.sign(user.username, process.env.JWT_SECRET, function(err, token) {
+            jwt.sign(user.name, process.env.JWT_SECRET, function(err, token) {
                 if (err) {
-                    res.render('login', {
+                    res.render('/home', {
                         activePage: { login: true },
                         error: err.message
                     });
@@ -63,7 +65,7 @@ exports.authenticate = async(req, res) => {
             });
         });
     } catch (error) {
-        res.render('login', {
+        res.render('/home', {
             activePage: { login: true },
             error: error.message
         });

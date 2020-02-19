@@ -5,7 +5,6 @@ body {
 }
 
 .container{
-  display: flex;
   top: 10px;
   left: 80px;
 }

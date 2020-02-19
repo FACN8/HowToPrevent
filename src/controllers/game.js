@@ -1,6 +1,10 @@
 exports.get = (req, res) => {
-    res.render("game", {
-        activePage: { game: true },
-        name: res.locals.name
-    });
+    if (res.locals.signedIn) {
+        res.render("game", {
+            activePage: { game: true },
+            name: res.locals.name
+        });
+    } else {
+        res.redirect('/')
+    }
 };
